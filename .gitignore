@@ -3,3 +3,6 @@ storage/
 __pycache__/
 *.pyc
 .env
+.venv/
+server.pid
+nohup.out
