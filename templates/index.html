@@ -120,41 +120,73 @@
 
         <!-- Portfolio Section -->
         <section class="section" id="portfolio">
-            <h2 class="section-title">Dynamic <span class="highlight">Projects</span></h2>
+            <h2 class="section-title">Featured <span class="highlight">Projects</span></h2>
             <div class="portfolio-grid">
-                {% for repo in repos %}
-                {% if not repo.fork %}
-                <div class="project-card content-blur" data-repo="{{ repo.full_name }}">
+                <!-- CLAWBOLT -->
+                <div class="project-card content-blur" data-repo="Jayson056/CLAWBOLT">
                     <div class="project-img">
-                        {% if 'clawbolt' in repo.name.lower() or 'bot' in repo.name.lower() %}
-                        <i class='bx bx-bot' style="font-size: 5rem; color: var(--primary);"></i>
-                        {% elif 'vps' in repo.name.lower() or 'remote' in repo.name.lower() %}
-                        <i class='bx bx-desktop' style="font-size: 5rem; color: var(--primary);"></i>
-                        {% elif 'bank' in repo.name.lower() or 'pay' in repo.name.lower() %}
-                        <i class='bx bx-landscape' style="font-size: 5rem; color: var(--primary);"></i>
-                        {% elif 'downloader' in repo.name.lower() or 'youtube' in repo.name.lower() %}
-                        <i class='bx bxl-youtube' style="font-size: 5rem; color: var(--primary);"></i>
-                        {% elif 'portfolio' in repo.name.lower() or 'web' in repo.name.lower() %}
-                        <i class='bx bx-globe' style="font-size: 5rem; color: var(--primary);"></i>
-                        {% else %}
-                        <i class='bx bx-code-alt' style="font-size: 5rem; color: var(--primary);"></i>
-                        {% endif %}
+                        <img src="{{ url_for('static', filename='logo.png') }}" alt="CLAWBOLT">
                     </div>
                     <div class="project-info">
-                        <h3>{{ repo.name }}</h3>
-                        <p>{{ repo.description if repo.description else "No description available for this repository." }}</p>
+                        <h3>CLAWBOLT</h3>
+                        <p>Secure, Telegram-driven AI control system with Human-in-the-Loop execution.</p>
                         <div class="repo-stats">
-                            <span class="stars"><i class='bx bx-star'></i> <span>{{ repo.stargazers_count }}</span></span>
-                            <span class="forks"><i class='bx bx-git-repo-forked'></i> <span>{{ repo.forks_count }}</span></span>
+                            <span class="stars"><i class='bx bx-star'></i> <span>--</span></span>
+                            <span class="forks"><i class='bx bx-git-repo-forked'></i> <span>--</span></span>
                         </div>
                         <button class="btn primary small open-modal">Explore Deeply</button>
                     </div>
                 </div>
-                {% endif %}
-                {% endfor %}
+
+                <!-- JVPS -->
+                <div class="project-card content-blur" data-repo="Jayson056/jvps">
+                    <div class="project-img">
+                        <i class='bx bx-desktop' style="font-size: 5rem; color: var(--primary);"></i>
+                    </div>
+                    <div class="project-info">
+                        <h3>JVPS Remote</h3>
+                        <p>Flask-based Remote Desktop system using WebSockets for real-time control.</p>
+                        <div class="repo-stats">
+                            <span class="stars"><i class='bx bx-star'></i> <span>--</span></span>
+                            <span class="forks"><i class='bx bx-git-repo-forked'></i> <span>--</span></span>
+                        </div>
+                        <button class="btn primary small open-modal">Explore Deeply</button>
+                    </div>
+                </div>
+
+                <!-- LandBank -->
+                <div class="project-card content-blur" data-repo="Jayson056/LandBank">
+                    <div class="project-img">
+                        <i class='bx bx-landscape' style="font-size: 5rem; color: var(--primary);"></i>
+                    </div>
+                    <div class="project-info">
+                        <h3>LandBank</h3>
+                        <p>Digital banking concept focusing on secure data architecture and user flow.</p>
+                        <div class="repo-stats">
+                            <span class="stars"><i class='bx bx-star'></i> <span>--</span></span>
+                            <span class="forks"><i class='bx bx-git-repo-forked'></i> <span>--</span></span>
+                        </div>
+                        <button class="btn primary small open-modal">Explore Deeply</button>
+                    </div>
+                </div>
+
+                <!-- ytDownloader -->
+                <div class="project-card content-blur" data-repo="Jayson056/ytMP34Downloader">
+                    <div class="project-img">
+                        <i class='bx bxl-youtube' style="font-size: 5rem; color: var(--primary);"></i>
+                    </div>
+                    <div class="project-info">
+                        <h3>ytDownloader</h3>
+                        <p>High-speed media conversion utility for downloading YouTube content.</p>
+                        <div class="repo-stats">
+                            <span class="stars"><i class='bx bx-star'></i> <span>--</span></span>
+                            <span class="forks"><i class='bx bx-git-repo-forked'></i> <span>--</span></span>
+                        </div>
+                        <button class="btn primary small open-modal">Explore Deeply</button>
+                    </div>
+                </div>
             </div>
         </section>
-
 
         <!-- Blog Section -->
         <section class="section" id="blog">
