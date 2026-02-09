@@ -1,20 +1,3 @@
-<<<<<<< HEAD
-blinker
-certifi
-charset
-click
-colorama
-Flask
-idna
-itsdangerous
-Jinja2
-MarkupSafe
-python-dotenv
-requests
-urllib3
-waitress
-Werkzeug
-=======
 Flask==2.0.3
 Werkzeug==2.0.3
 Jinja2==3.0.3
@@ -23,4 +6,3 @@ click==8.0.4
 requests
 python-dotenv
 waitress
->>>>>>> 85ffc62 (Use Flask 2.0.3 and stable dependencies for better compatibility)
