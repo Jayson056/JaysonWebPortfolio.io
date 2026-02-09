@@ -1,0 +1,5 @@
+server.log
+storage/
+__pycache__/
+*.pyc
+.env

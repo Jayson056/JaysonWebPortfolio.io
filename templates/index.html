@@ -1,64 +1,273 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}"> 
-</head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jayson Combate | Elite Portfolio</title>
+
+    <!-- Fonts & Icons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="index.scss">
-    <title>Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
 </head>
 
 <body>
-    <header class="container">
-        <div class="page-header">
+    <!-- 3D Canvas Container -->
+    <div id="three-bg"></div>
+
+    <div class="bg-animate">
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+
+    <header>
+        <nav class="container content-blur">
             <div class="logo">
-    <a href="#">
-        <img src="{{ url_for('static', filename='logo.png') }}" alt="" class="img-w" style="width: 30px; height: auto;">
-    </a>
-</div>
+                <a href="#">
+                    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+                </a>
+            </div>
 
             <input type="checkbox" id="click">
-
-            <label for="click" class="mainicon">
-                <div class="menu">
-                    <i class='bx bx-menu'></i>
-                </div>
+            <label for="click" class="menu-btn">
+                <i class='bx bx-menu'></i>
             </label>
+
             <ul>
-                <li><a href="#"  class="active" style="--navAni:1">Home</a></li>
-                <li><a href="#" style="--navAni:2">About</a></li>
-                <li><a href="#" style="--navAni:3">Skills</a></li>
-                <li><a href="#" style="--navAni:4">Portfolio</a></li>
-                <li><a href="#" style="--navAni:5">Contact</a></li>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
-        </div>
+        </nav>
     </header>
 
-
-    <section class="container">
-        <div class="main">
-            <div class="images">
-                <img src="Jay.png" alt="" class="img-w">
-                <img src="{{ url_for('static', filename='Jay.png') }}" alt="" class="img-w">
-            </div>
-            <div class="detail">
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-content content-blur">
                 <h3>Hi, I'm</h3>
-                <h1><span style="color:#f9532d;">Jayson</span> Combate</h1>   
-                <div class="social">
-                    <a href="https://www.linkedin.com/in/jayson-combate-8721771b3/" style="--socialAni:1"><i class='bx bxl-linkedin'></i></a>
-                    <a href="https://www.instagram.com/jaysonapable/" style="--socia"><i class='bx bxl-instagram'></i></a>
-                    <a href="https://github.com/Jayson056" style="--socialAni:3"><i class='bx bxl-github'></i></a>
-                    <a href="https://www.youtube.com/@JaysonApableCombate/" style="--socialAni:4"><i class='bx bxl-youtube'></i></a>
+                <h1><span class="highlight">Jayson</span> Combate</h1>
+                <p class="subtitle">Full Stack Developer & AI Automation Specialist</p>
+
+                <div class="social-links">
+                    <a href="https://github.com/Jayson056" target="_blank"><i class='bx bxl-github'></i></a>
+                    <a href="https://www.linkedin.com/in/jayson-combate-8721771b3/" target="_blank"><i
+                            class='bx bxl-linkedin'></i></a>
+                    <a href="https://www.instagram.com/jaysonapable/" target="_blank"><i
+                            class='bx bxl-instagram'></i></a>
+                    <a href="https://www.youtube.com/@JaysonApableCombate/" target="_blank"><i
+                            class='bx bxl-youtube'></i></a>
+                </div>
+
+                <div class="cta-btns">
+                    <a href="#portfolio" class="btn primary">View My Work</a>
+                    <a href="#contact" class="btn secondary">Hire Me</a>
                 </div>
             </div>
+
+            <div class="hero-image">
+                <div class="image-box content-blur">
+                    <img src="{{ url_for('static', filename='Jay.png') }}" alt="Jayson Combate">
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="section" id="about">
+            <h2 class="section-title">About <span class="highlight">Me</span></h2>
+            <div class="about-content content-blur">
+                <p>I am a passionate Full Stack Developer with a deep interest in AI automation and system integration.
+                    My mission is to bridge the gap between complex AI reasoning and practical, human-centered
+                    applications. With a focus on security and efficiency, I build systems that empower users and
+                    streamline workflows.</p>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="section" id="skills">
+            <h2 class="section-title">Technical <span class="highlight">Expertise</span></h2>
+            <div class="skills-grid">
+                <div class="skill-card content-blur">
+                    <i class='bx bxl-python'></i>
+                    <h3>Python</h3>
+                    <p>Advanced automation, AI integration, and core logic development.</p>
+                </div>
+                <div class="skill-card content-blur">
+                    <i class='bx bxl-javascript'></i>
+                    <h3>Full Stack</h3>
+                    <p>Building responsive, modern web applications with HTML, CSS, and JS.</p>
+                </div>
+                <div class="skill-card content-blur">
+                    <i class='bx bx-bot'></i>
+                    <h3>AI Automation</h3>
+                    <p>Expertise in LLM orchestration and GUI-based AI agents.</p>
+                </div>
+                <div class="skill-card content-blur">
+                    <i class='bx bxl-tux'></i>
+                    <h3>Linux Systems</h3>
+                    <p>Systemd automation, shell scripting, and secure deployments.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section class="section" id="portfolio">
+            <h2 class="section-title">Featured <span class="highlight">Projects</span></h2>
+            <div class="portfolio-grid">
+                <!-- CLAWBOLT -->
+                <div class="project-card content-blur" data-repo="Jayson056/CLAWBOLT">
+                    <div class="project-img">
+                        <img src="{{ url_for('static', filename='logo.png') }}" alt="CLAWBOLT">
+                    </div>
+                    <div class="project-info">
+                        <h3>CLAWBOLT</h3>
+                        <p>Secure, Telegram-driven AI control system with Human-in-the-Loop execution.</p>
+                        <div class="repo-stats">
+                            <span class="stars"><i class='bx bx-star'></i> <span>--</span></span>
+                            <span class="forks"><i class='bx bx-git-repo-forked'></i> <span>--</span></span>
+                        </div>
+                        <button class="btn primary small open-modal">Explore Deeply</button>
+                    </div>
+                </div>
+
+                <!-- JVPS -->
+                <div class="project-card content-blur" data-repo="Jayson056/jvps">
+                    <div class="project-img">
+                        <i class='bx bx-desktop' style="font-size: 5rem; color: var(--primary);"></i>
+                    </div>
+                    <div class="project-info">
+                        <h3>JVPS Remote</h3>
+                        <p>Flask-based Remote Desktop system using WebSockets for real-time control.</p>
+                        <div class="repo-stats">
+                            <span class="stars"><i class='bx bx-star'></i> <span>--</span></span>
+                            <span class="forks"><i class='bx bx-git-repo-forked'></i> <span>--</span></span>
+                        </div>
+                        <button class="btn primary small open-modal">Explore Deeply</button>
+                    </div>
+                </div>
+
+                <!-- LandBank -->
+                <div class="project-card content-blur" data-repo="Jayson056/LandBank">
+                    <div class="project-img">
+                        <i class='bx bx-landscape' style="font-size: 5rem; color: var(--primary);"></i>
+                    </div>
+                    <div class="project-info">
+                        <h3>LandBank</h3>
+                        <p>Digital banking concept focusing on secure data architecture and user flow.</p>
+                        <div class="repo-stats">
+                            <span class="stars"><i class='bx bx-star'></i> <span>--</span></span>
+                            <span class="forks"><i class='bx bx-git-repo-forked'></i> <span>--</span></span>
+                        </div>
+                        <button class="btn primary small open-modal">Explore Deeply</button>
+                    </div>
+                </div>
+
+                <!-- ytDownloader -->
+                <div class="project-card content-blur" data-repo="Jayson056/ytMP34Downloader">
+                    <div class="project-img">
+                        <i class='bx bxl-youtube' style="font-size: 5rem; color: var(--primary);"></i>
+                    </div>
+                    <div class="project-info">
+                        <h3>ytDownloader</h3>
+                        <p>High-speed media conversion utility for downloading YouTube content.</p>
+                        <div class="repo-stats">
+                            <span class="stars"><i class='bx bx-star'></i> <span>--</span></span>
+                            <span class="forks"><i class='bx bx-git-repo-forked'></i> <span>--</span></span>
+                        </div>
+                        <button class="btn primary small open-modal">Explore Deeply</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Section -->
+        <section class="section" id="blog">
+            <h2 class="section-title">Latest <span class="highlight">Insights</span></h2>
+            <div class="blog-grid">
+                <div class="blog-card content-blur">
+                    <div class="blog-date">Feb 09, 2026</div>
+                    <h3>The Future of Agentic AI</h3>
+                    <p>Exploring how autonomous agents are redefining software engineering workflows...</p>
+                    <a href="#" class="read-more">Read More &rarr;</a>
+                </div>
+                <div class="blog-card content-blur">
+                    <div class="blog-date">Feb 05, 2026</div>
+                    <h3>Securing the AI-Bridge</h3>
+                    <p>Security protocols and best practices for Human-in-the-Loop automation...</p>
+                    <a href="#" class="read-more">Read More &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section" id="contact">
+            <h2 class="section-title">Get In <span class="highlight">Touch</span></h2>
+            <div class="contact-container content-blur">
+                <p>Have a project in mind or just want to say hi? My inbox is always open.</p>
+
+                <form id="contact-form" class="professional-form">
+                    <div class="form-group">
+                        <input type="text" id="name" placeholder="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn primary full-width">Send Message</button>
+                </form>
+
+                <div class="contact-methods">
+                    <div class="method"><i class='bx bx-envelope'></i> <span>jayson.email@example.com</span></div>
+                    <div class="method"><i class='bx bxl-telegram'></i> <span>@Jayson056</span></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Project Modal -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content content-blur">
+            <div class="modal-header">
+                <h2 id="modal-title">Project Details</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div id="modal-body">
+                <!-- Data injected via JS -->
+            </div>
         </div>
-    </section>
+    </div>
+
+    <!-- AI ClawBot Assistant -->
+    <div id="clawbot-bubble" class="clawbot-bubble">
+        <i class='bx bx-bot'></i>
+    </div>
+    <div id="clawbot-chat" class="clawbot-chat content-blur">
+        <div class="chat-header">
+            <span>ClawBot Assistant</span>
+            <i class='bx bx-x' id="close-chat"></i>
+        </div>
+        <div id="chat-messages" class="chat-messages">
+            <div class="message ai">Hi! I'm ClawBot. How can I help you learn about Jayson?</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Type a message...">
+            <button id="send-btn"><i class='bx bx-send'></i></button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
 </body>
 
 </html>
