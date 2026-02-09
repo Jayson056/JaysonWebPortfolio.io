@@ -1,24 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. GitHub Stats Integration
-    const fetchGitHubStats = async () => {
-        const cards = document.querySelectorAll('.project-card[data-repo]');
-        cards.forEach(async (card) => {
-            const repo = card.getAttribute('data-repo');
-            try {
-                const response = await fetch(`https://api.github.com/repos/${repo}`);
-                const data = await response.json();
-                if (data.stargazers_count !== undefined) {
-                    card.querySelector('.stars span').textContent = data.stargazers_count;
-                    card.querySelector('.forks span').textContent = data.forks_count;
-                }
-            } catch (error) {
-                console.error('Error fetching GitHub stats:', error);
-            }
-        });
-    };
-    fetchGitHubStats();
+    // 1. Project 'Deep-Dive' Modals (Enhanced for Dynamic Repos)
 
-    // 2. Project 'Deep-Dive' Modals
     const modal = document.getElementById('project-modal');
     const modalBody = document.getElementById('modal-body');
     const modalTitle = document.getElementById('modal-title');
@@ -40,16 +22,33 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     document.querySelectorAll('.open-modal').forEach(btn => {
-        btn.addEventListener('click', (e) => {
+        btn.addEventListener('click', async (e) => {
             const card = e.target.closest('.project-card');
             const repo = card.getAttribute('data-repo');
             const projectKey = repo.split('/')[1].toLowerCase();
-            const data = projectData[projectKey] || {
-                title: card.querySelector('h3').textContent,
-                desc: card.querySelector('p').textContent,
-                stack: ['GitHub Project'],
-                features: ['Refer to GitHub for details']
-            };
+
+            let data = projectData[projectKey];
+
+            if (!data) {
+                // Fetch extra details if not in hardcoded list
+                try {
+                    const response = await fetch(`https://api.github.com/repos/${repo}`);
+                    const repoData = await response.json();
+                    data = {
+                        title: repoData.name,
+                        desc: repoData.description || 'A GitHub project by Jayson Combate.',
+                        stack: [repoData.language || 'Code'],
+                        features: [`Stars: ${repoData.stargazers_count}`, `Last Updated: ${new Date(repoData.updated_at).toLocaleDateString()}`]
+                    };
+                } catch (err) {
+                    data = {
+                        title: card.querySelector('h3').textContent,
+                        desc: card.querySelector('p').textContent,
+                        stack: ['GitHub Project'],
+                        features: ['Refer to GitHub for details']
+                    };
+                }
+            }
 
             modalTitle.textContent = data.title;
             modalBody.innerHTML = `
@@ -61,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
                 <div style="margin-bottom: 2rem;">
-                    <h4 style="color: var(--primary); margin-bottom: 1rem;">Key Features:</h4>
+                    <h4 style="color: var(--primary); margin-bottom: 1rem;">Key Metrics:</h4>
                     <ul style="list-style: none; color: var(--text-dim);">
                         ${data.features.map(f => `<li style="margin-bottom: 0.5rem;"><i class='bx bx-check-circle' style="color: var(--primary); margin-right: 0.5rem;"></i> ${f}</li>`).join('')}
                     </ul>
@@ -72,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = 'hidden';
         });
     });
+
 
     closeModal.onclick = () => {
         modal.style.display = 'none';
