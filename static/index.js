@@ -1,6 +1,52 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Project 'Deep-Dive' Modals (Enhanced for Dynamic Repos)
+    // 1. Dynamic GitHub Projects Integration
+    const portfolioGrid = document.querySelector('.portfolio-grid');
 
+    const fetchAllRepos = async () => {
+        try {
+            const response = await fetch('https://api.github.com/users/Jayson056/repos?sort=updated&per_page=100');
+            const repos = await response.json();
+
+            if (Array.isArray(repos)) {
+                portfolioGrid.innerHTML = ''; // Clear existing static cards
+
+                repos.forEach(repo => {
+                    // Skip the portfolio repo itself if desired
+                    if (repo.name === 'JaysonWebPortfolio.io') return;
+
+                    const card = document.createElement('div');
+                    card.className = 'project-card content-blur';
+                    card.setAttribute('data-repo', repo.full_name);
+
+                    const description = repo.description || 'Professional software development project on GitHub.';
+
+                    card.innerHTML = `
+                        <div class="project-img">
+                            <i class='bx bx-code-alt' style="font-size: 5rem; color: var(--primary);"></i>
+                        </div>
+                        <div class="project-info">
+                            <h3>${repo.name}</h3>
+                            <p>${description}</p>
+                            <div class="repo-stats">
+                                <span class="stars"><i class='bx bx-star'></i> <span>${repo.stargazers_count}</span></span>
+                                <span class="forks"><i class='bx bx-git-repo-forked'></i> <span>${repo.forks_count}</span></span>
+                            </div>
+                            <button class="btn primary small open-modal">Explore Deeply</button>
+                        </div>
+                    `;
+                    portfolioGrid.appendChild(card);
+                });
+
+                // Re-bind modal events for new cards
+                bindModalEvents();
+            }
+        } catch (error) {
+            console.error('Error fetching GitHub repos:', error);
+        }
+    };
+    fetchAllRepos();
+
+    // 2. Project 'Deep-Dive' Modals
     const modal = document.getElementById('project-modal');
     const modalBody = document.getElementById('modal-body');
     const modalTitle = document.getElementById('modal-title');
@@ -21,57 +67,41 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    document.querySelectorAll('.open-modal').forEach(btn => {
-        btn.addEventListener('click', async (e) => {
-            const card = e.target.closest('.project-card');
-            const repo = card.getAttribute('data-repo');
-            const projectKey = repo.split('/')[1].toLowerCase();
+    const bindModalEvents = () => {
+        document.querySelectorAll('.open-modal').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const card = e.target.closest('.project-card');
+                const repo = card.getAttribute('data-repo');
+                const projectKey = repo.split('/')[1].toLowerCase();
+                const data = projectData[projectKey] || {
+                    title: card.querySelector('h3').textContent,
+                    desc: card.querySelector('p').textContent,
+                    stack: ['GitHub Project'],
+                    features: ['Refer to GitHub for details']
+                };
 
-            let data = projectData[projectKey];
-
-            if (!data) {
-                // Fetch extra details if not in hardcoded list
-                try {
-                    const response = await fetch(`https://api.github.com/repos/${repo}`);
-                    const repoData = await response.json();
-                    data = {
-                        title: repoData.name,
-                        desc: repoData.description || 'A GitHub project by Jayson Combate.',
-                        stack: [repoData.language || 'Code'],
-                        features: [`Stars: ${repoData.stargazers_count}`, `Last Updated: ${new Date(repoData.updated_at).toLocaleDateString()}`]
-                    };
-                } catch (err) {
-                    data = {
-                        title: card.querySelector('h3').textContent,
-                        desc: card.querySelector('p').textContent,
-                        stack: ['GitHub Project'],
-                        features: ['Refer to GitHub for details']
-                    };
-                }
-            }
-
-            modalTitle.textContent = data.title;
-            modalBody.innerHTML = `
-                <p style="margin-bottom: 2rem; font-size: 1.1rem; color: var(--text-dim);">${data.desc}</p>
-                <div style="margin-bottom: 2rem;">
-                    <h4 style="color: var(--primary); margin-bottom: 1rem;">Core Tech Stack:</h4>
-                    <div class="tags">
-                        ${data.stack.map(s => `<span>${s}</span>`).join('')}
+                modalTitle.textContent = data.title;
+                modalBody.innerHTML = `
+                    <p style="margin-bottom: 2rem; font-size: 1.1rem; color: var(--text-dim);">${data.desc}</p>
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="color: var(--primary); margin-bottom: 1rem;">Core Tech Stack:</h4>
+                        <div class="tags">
+                            ${data.stack.map(s => `<span>${s}</span>`).join('')}
+                        </div>
                     </div>
-                </div>
-                <div style="margin-bottom: 2rem;">
-                    <h4 style="color: var(--primary); margin-bottom: 1rem;">Key Metrics:</h4>
-                    <ul style="list-style: none; color: var(--text-dim);">
-                        ${data.features.map(f => `<li style="margin-bottom: 0.5rem;"><i class='bx bx-check-circle' style="color: var(--primary); margin-right: 0.5rem;"></i> ${f}</li>`).join('')}
-                    </ul>
-                </div>
-                <a href="https://github.com/${repo}" target="_blank" class="btn primary">View on GitHub</a>
-            `;
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="color: var(--primary); margin-bottom: 1rem;">Key Features:</h4>
+                        <ul style="list-style: none; color: var(--text-dim);">
+                            ${data.features.map(f => `<li style="margin-bottom: 0.5rem;"><i class='bx bx-check-circle' style="color: var(--primary); margin-right: 0.5rem;"></i> ${f}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <a href="https://github.com/${repo}" target="_blank" class="btn primary">View on GitHub</a>
+                `;
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            });
         });
-    });
-
+    };
 
     closeModal.onclick = () => {
         modal.style.display = 'none';
