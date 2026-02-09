@@ -217,20 +217,38 @@ document.addEventListener('DOMContentLoaded', () => {
     sendBtn.onclick = handleChat;
     userInput.onkeydown = (e) => { if (e.key === 'Enter') handleChat(); };
 
-    // 4. Contact Form Handler
-    document.getElementById('contact-form').onsubmit = (e) => {
+    // 4. Contact Form Handler - Professional AJAX Submission
+    document.getElementById('contact-form').onsubmit = async (e) => {
         e.preventDefault();
-        const btn = e.target.querySelector('button');
+        const form = e.target;
+        const btn = form.querySelector('button');
         const originalText = btn.textContent;
+
         btn.textContent = 'Sending...';
         btn.disabled = true;
 
-        setTimeout(() => {
-            alert('Thank you! Your message has been sent to Jayson via ClawBolt.');
+        const data = new FormData(form);
+        try {
+            const response = await fetch("https://formspree.io/f/mqakayqj", { // Using placeholder, recommend user update this ID
+                method: 'POST',
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                alert('Thank you! Your message has been sent directly to Jayson\'s Gmail.');
+                form.reset();
+            } else {
+                alert('Oops! There was a problem sending your message. Please try again.');
+            }
+        } catch (error) {
+            alert('Oops! There was a connection error. Please try again later.');
+        } finally {
             btn.textContent = originalText;
             btn.disabled = false;
-            e.target.reset();
-        }, 1500);
+        }
     };
 
     // 5. Basic Three.js Background Visuals
