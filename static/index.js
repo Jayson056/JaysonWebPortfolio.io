@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const data = new FormData(form);
         try {
-            const response = await fetch("https://formspree.io/f/mqakayqj", { // Using placeholder, recommend user update this ID
+            const response = await fetch("https://formspree.io/f/mldevjze", { // Using placeholder, recommend user update this ID
                 method: 'POST',
                 body: data,
                 headers: {
