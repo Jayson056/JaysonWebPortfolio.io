@@ -10,19 +10,28 @@ document.addEventListener('DOMContentLoaded', () => {
             if (Array.isArray(repos)) {
                 portfolioGrid.innerHTML = ''; // Clear existing static cards
 
-                repos.forEach(repo => {
-                    // Skip the portfolio repo itself if desired
-                    if (repo.name === 'JaysonWebPortfolio.io') return;
+                // Custom Icons for known project categories
+                const getProjectIcon = (name) => {
+                    const n = name.toLowerCase();
+                    if (n.includes('clawbolt')) return 'bx-bot';
+                    if (n.includes('portfolio')) return 'bx-pencil';
+                    if (n.includes('ml53')) return 'bx-certification';
+                    if (n.includes('jvps')) return 'bx-desktop';
+                    if (n.includes('downloader')) return 'bxl-youtube';
+                    return 'bx-code-alt';
+                };
 
+                repos.forEach(repo => {
                     const card = document.createElement('div');
                     card.className = 'project-card content-blur';
                     card.setAttribute('data-repo', repo.full_name);
 
                     const description = repo.description || 'Professional software development project on GitHub.';
+                    const icon = getProjectIcon(repo.name);
 
                     card.innerHTML = `
                         <div class="project-img">
-                            <i class='bx bx-code-alt' style="font-size: 5rem; color: var(--primary);"></i>
+                            <i class='bx ${icon}' style="font-size: 5rem; color: var(--primary);"></i>
                         </div>
                         <div class="project-info">
                             <h3>${repo.name}</h3>
